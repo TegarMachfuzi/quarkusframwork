@@ -46,4 +46,12 @@ public class MovieResource {
         }).collect(Collectors.toList());
         return Response.ok(movies).build();
     }
+
+    @DELETE
+    @Path("{movieToDelete}")
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response deleteMovie(@PathParam("movieToDelete") String movieToDelete) {
+        boolean removed = movies.remove(movieToDelete);
+        return removed ? Response.noContent().build() : Response.status(Response.Status.BAD_REQUEST).build();
+    }
 }
